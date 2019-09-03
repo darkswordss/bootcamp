@@ -7,8 +7,25 @@ var http = require('http'),
 var listingData, server;
 
 var requestHandler = function(request, response) {
-  var parsedUrl = url.parse(request.url);
 
+  var url_parts = url.parse(request.url);
+  console.log(url_parts);
+  console.log(url_parts.pathname);
+
+  if(url_parts.pathname != '/listings'){
+
+    response.writeHead(404, {'Content-Type': 'text/plain'});
+    response.end('Bad gateway error');
+    
+  }else {
+
+  var parsedUrl = url.parse(request.url);
+  //console.log('i made it here');
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.end(listingData);
+}
+
+ 
   /*
     Your request handler should send listingData in the JSON format as a response if a GET request 
     is sent to the '/listings' path. Otherwise, it should send a 404 error. 
@@ -27,6 +44,16 @@ var requestHandler = function(request, response) {
 };
 
 fs.readFile('listings.json', 'utf8', function(err, data) {
+
+  
+  if (err) {
+    console.log(err); }
+  else{
+     
+      listingData=data;
+      // console.log(listingData);
+    }
+ 
   /*
     This callback function should save the data in the listingData variable, 
     then start the server. 
@@ -37,15 +64,21 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
     HINT: Read up on JSON parsing Node.js
    */
 
-    //Check for errors
+    //DONE Check for errors 
   
 
-   //Save the sate in the listingData variable already defined
+   //DONE Save the sate in the listingData variable already defined
   
 
-  //Creates the server
+  //DONE Creates the server
+  var server = http.createServer(requestHandler);
+
   
-  //Start the server
+  //DONE Start the server
+  server.listen(port, function() {
+    //once the server is listening, this callback function is executed
+    console.log('Server listening on: http://127.0.0.1:' + port);
+  });
 
 
 });
