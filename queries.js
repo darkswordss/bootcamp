@@ -6,6 +6,7 @@
 //Check out - https://mongoosejs.com/docs/queries.html
 
 var findLibraryWest = function() {
+  
   /* 
     Find the document that contains data corresponding to Library West,
     then log it to the console. 
