@@ -35,12 +35,12 @@ var removeCable = function() {
     console.log(element)
   });
 };
-var updatePhelpsMemorial = function() {
+var updatePhelpsLab = function() {
   /*
     Phelps Lab address is incorrect. Find the listing, update it, and then 
     log the updated document to the console. 
    */
-  Listing.findOneAndUpdate({ 'code': 'PHL' },{$set:{name:"Phelps Memorial"}}, function (err, element) {
+  Listing.findOneAndUpdate({ 'code': 'PHL' },{$set:{address:"1953 Museum Rd, Gainesville, FL 32603"}}, function (err, element) {
     if (err) return handleError(err);
     
     element.name='Phelps Memorial';
@@ -48,9 +48,9 @@ var updatePhelpsMemorial = function() {
   });
 };
 var retrieveAllListings = function() {
-  Listing.find({}, function(err, docs) {
+  Listing.find({}, function(err, element) {
     if (!err){ 
-        console.log(docs);
+        console.log(element);
         process.exit();
     } else {throw err;}
 });
@@ -58,5 +58,5 @@ var retrieveAllListings = function() {
 
 findLibraryWest();
 removeCable();
-updatePhelpsMemorial();
+updatePhelpsLab();
 retrieveAllListings();
